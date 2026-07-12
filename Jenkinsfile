@@ -7,6 +7,7 @@ tools {
         stage('Checkout') {
             steps {
                echo 'checking out from https://github.com/Assana1237/Java-maven-app.git'
+                checkout scm
             }
         }
 
