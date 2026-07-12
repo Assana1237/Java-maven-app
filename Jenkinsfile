@@ -27,7 +27,7 @@ tools {
         stage('Docker Build') {
             steps {
                 echo 'Building the docker image demo-app:1.1'
-                sh 'docker build -t demo-appp:1.1 .'
+                sh 'docker build -t demo-app:1.1 .'
             }
         }
 
