@@ -25,15 +25,15 @@ tools {
 
         stage('Docker Build') {
             steps {
-                echo 'Building the docker image java-maven-app:1.1'
-                sh 'docker build -t java-maven-app:1.1 .'
+                echo 'Building the docker image demo-app:1.1'
+                sh 'docker build -t demo-appp:1.1 .'
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying the Docker container to test environment'
-                sh 'docker run -d --name test-app -p 8080:8080 java-maven-app:1.1'
+                sh 'docker run -d -p 8080:8080 demo-app:1.1'
             }
         }
     }
