@@ -18,24 +18,24 @@ tools {
             }
         }
 
-        stage('Docker Build') {
+        stage("build image") {
             steps {
-                echo 'Building the docker image demo-app:1.1'
-                sh 'docker build -t demo-app:1.1 .'
+                script {
+                    echo "building the docker image..."
+                    withCredentials([usernamePassword(credentialsId: 'DockerHub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+                        sh 'docker build -t assana/demo-app:1.1 .'
+                        sh 'echo $PASS | docker login -u $USER --password-stdin'
+                        sh 'docker push assana/demo-app:1.1'
+                    }
+                }
             }
         }
 
-        stage('Deploy') {
+        stage("deploy") {
             steps {
-                echo 'Deploying the Docker container to test environment'
-                sh '''
-        docker stop demo-app || true
-        docker rm demo-app || true
-        docker run -d \
-          --name demo-app-test \
-          -p 8080:8080 \
-          demo-app:1.1
-        '''
+                script {
+                    echo "deploying the application..."
+                }
             }
         }
     }
